@@ -1,5 +1,7 @@
 # About
 
+WARNING: This hash isn't intended for secure purposes.
+
 Maru (*Ma-roo*) hash is a string hash function that uses the Davies-Meyer construction.
 
 The Speck Block cipher is used for the underlying compression function, using 64-bit block, and 128-bit key as parameters.
