@@ -58,8 +58,7 @@ uint64_t encrypt(void *buf, void *key)
       XCHG(k3, k2);
       XCHG(k3, k1);    
     }
-    // xor with input
-    x->w[0] ^= x0; x->w[1] ^= x1;
+    x->w[0] = x0; x->w[1] = x1;
     return x->q;    
 }
 
@@ -124,32 +123,32 @@ const char *key_tbl[]=
   "api_key3"  };
 
 const char *api_hash[]=
-{ "f00d0c9834793f10",
-"82c0e0800eeb1c04",
-"2b9586f67d84ef3a",
-"15ea7bc1661b86f1",
-"f8bd9013547ba993",
-"ca123ed71758e005",
-"8cb6a9944cc8902f",
-"57f1289b9377ebdb",
+{ "a905bb7836a12e2f",
+  "adbb54cfe29cb7ce",
+  "874da7739798ce0e",
+  "1d52532e55e429f0",
+  "14c64a6c64628d78",
+  "bb2dcc0cce5c6494",
+  "f4999b3f4d44c3fe",
+  "b9372bbe2b595de2",
 
-"af7ea6949e1dd903",
-"8077f3294dd3f11b",
-"15a0e8515a2ca851",
-"03525c4363faba5f",
-"88c5c5091be6d434",
-"c6dd568cebf6b644",
-"25ed5ce78f5461f0",
-"6b9d1572fae8b5bb",
+  "aa2f4e21e967b2dd",
+  "ce602ea473a05cf6",
+  "4ac25f5fce9cdb73",
+  "eac5f56cc32b5a9a",
+  "ab2b5105242c6206",
+  "502891ee77cb481a",
+  "e44bf17b4f7286f6",
+  "537f03e076869311",
 
-"781bcbb948944e36",
-"31b66340766b002c",
-"cd81e1ad46c0287e",
-"5c30b03f91d538a8",
-"c3d4d8ddcdeabfc1",
-"ec5c4a88599ae69d",
-"a13d3c8ea232fa14",
-"36f3b6b1727752e0", };
+  "c183f605e22986fb",
+  "d0bc8a3068770545",
+  "23f0e4f12cb9404a",
+  "3102e5f5416b9ab0",
+  "8a1722b974d6ec2d",
+  "5fc4de4ed3581051",
+  "31dd7d8612b1b301",
+  "624f12e454dc3d09" };
   
 int _isxdigit (int c)
 {
@@ -208,7 +207,7 @@ int main(int argc, char *argv[])
         // hash string        
         x = maru(api_tbl[j], key);        
         
-        printf ("\n  \"%016llx\", = maru(\"%s\", \"%s\") : %s", 
+        printf ("\n  \"%016llx\" = maru(\"%s\", \"%s\") : %s", 
           (unsigned long long)x, api_tbl[j], key, h==x ? "OK" : "FAIL");
       }
     }
@@ -221,7 +220,7 @@ int main(int argc, char *argv[])
   strncpy((char*)str, argv[1], MARU_STR_LEN);
   strncpy((char*)key, argv[2], MARU_KEY_LEN); 
 
-  h = maru(str, key);
+  h = maru((const char*)str, key);
   
   printf ("\nMaru Hash = %llx\n", (unsigned long long)h);
   return 0;
